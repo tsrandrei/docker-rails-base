@@ -2,14 +2,19 @@ FROM ruby:2.6.5-alpine
 LABEL maintainer="georg@ledermann.dev"
 
 # Add basic packages
-RUN apk add --update --no-cache \
+RUN apk add --update --no-cache --virtual build-dependencies\
       build-base \
       postgresql-dev \
       git \
       nodejs \
       yarn \
       tzdata \
-      file
+      file \
+      python \
+      make \
+      g++ \
+      && npm install \
+      && apk del build-dependencies
 
 WORKDIR /app
 
